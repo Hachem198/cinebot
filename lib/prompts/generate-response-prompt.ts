@@ -1,30 +1,33 @@
 export const makeGenerateResponsePrompt = (
-  movies?: any[],
-  books?: any[],
+  documents?: any,
   userQuery?: string
 ) => {
   return `
   You are a helpful assistant that generates a concise and informative response to the user's query.
   
   User query:
-  "${userQuery || (movies?.[movies.length - 1].content ?? "")}"
+  "${userQuery || (documents?.[documents.length - 1].content ?? "")}"
   
   Available information:
   
   Movies:
   ${
-    movies?.length
-      ? movies
-          .map((m, i) => `${i + 1}. ${m.metadata?.title || m.content}`)
+    documents?.movies?.length
+      ? documents.movies
+          .map(
+            (m: any, i: number) => `${i + 1}. ${m.metadata?.title || m.content}`
+          )
           .join("\n")
       : "None"
   }
   
   Books:
   ${
-    books?.length
-      ? books
-          .map((b, i) => `${i + 1}. ${b.metadata?.title || b.content}`)
+    documents?.books?.length
+      ? documents.books
+          .map(
+            (b: any, i: number) => `${i + 1}. ${b.metadata?.title || b.content}`
+          )
           .join("\n")
       : "None"
   }

@@ -67,39 +67,15 @@ export default function ChatbotPage() {
         throw new Error("Failed to get response");
       }
 
-      const reader = response.body?.getReader();
-      if (!reader) {
-        throw new Error("No response body");
-      }
-
+      const data = await response.json();
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: "",
+        content: data.text,
         role: "assistant",
         createdAt: new Date(),
       };
 
       setMessages((prev) => [...prev, assistantMessage]);
-
-      const decoder = new TextDecoder();
-      let done = false;
-
-      while (!done) {
-        const { value, done: readerDone } = await reader.read();
-        done = readerDone;
-
-        if (value) {
-          const chunk = decoder.decode(value);
-          setMessages((prev) => {
-            const newMessages = [...prev];
-            const lastMessage = newMessages[newMessages.length - 1];
-            if (lastMessage && lastMessage.role === "assistant") {
-              lastMessage.content += chunk;
-            }
-            return newMessages;
-          });
-        }
-      }
     } catch (err) {
       console.error("Chat error:", err);
       setError("Sorry, I encountered an error. Please try again.");
