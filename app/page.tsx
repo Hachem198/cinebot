@@ -271,42 +271,6 @@ export default function ChatbotPage() {
                 <span className="sr-only">Send message</span>
               </Button>
             </form>
-
-            {/* Quick Actions */}
-            <div className="flex gap-2 mt-3">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setQuickMessage("Recommend me a sci-fi movie")}
-                disabled={isLoading}
-                className="text-xs"
-              >
-                <Film className="w-3 h-3 mr-1" />
-                Sci-fi movies
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setQuickMessage("Suggest a mystery book")}
-                disabled={isLoading}
-                className="text-xs"
-              >
-                <Book className="w-3 h-3 mr-1" />
-                Mystery books
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() =>
-                  setQuickMessage("What's trending in entertainment?")
-                }
-                disabled={isLoading}
-                className="text-xs"
-              >
-                <Sparkles className="w-3 h-3 mr-1" />
-                Trending
-              </Button>
-            </div>
           </div>
         </div>
       </main>
